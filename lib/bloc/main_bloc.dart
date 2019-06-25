@@ -20,12 +20,14 @@ class MainBloc extends BaseBloc {
   Future getArticleListProject(String labelId, int page) {
     bool isRefresh;
     if (page == 1) {
-      _reposList.clear();
       isRefresh = true;
     } else {
       isRefresh = false;
     }
     return repository.getArticleListProject(page).then((list) {
+      if(page ==1){
+        _reposList.clear();
+      }
       _reposList.addAll(list);
       _reposSink.add(UnmodifiableListView<ReposModel>(_reposList));
       postPageEmpty2PageContent(isRefresh, list);

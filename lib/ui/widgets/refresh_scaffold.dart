@@ -59,8 +59,6 @@ class RefreshScaffoldState extends State<RefreshScaffold>
           enablePullUp: widget.enablePullUp,
           onRefresh: widget.onRefresh,
           onLoading: widget.onLoadMore,
-          footer: ListFooterView(),
-          header: MaterialClassicHeader(),
           child: widget.child ??
               new ListView.builder(
                 itemCount: widget.itemCount,

@@ -27,7 +27,7 @@ class BaseBloc {
   postPageEmpty2PageContent(bool isRefresh, Object list) {
     pageEventSink.add(new PageStatusEvent(
         errorDesc: "",
-        isRefresh: true,
+        isRefresh: isRefresh,
         pageStatus: ObjectUtil.isEmpty(list)
             ? PageEnum.showEmpty
             : PageEnum.showContent));
