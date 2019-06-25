@@ -6,37 +6,20 @@ import 'bloc_provider.dart';
 /// @time 2019/5/6 14:17
 /// @author lizubing
 
-class ApplicationBloc implements BlocBase {
+class ApplicationBloc extends BaseBloc {
   BehaviorSubject<int> _appEvent = BehaviorSubject<int>();
 
-  Sink<int> get _appEventSink => _appEvent.sink;
+  get _appEventSink => _appEvent.sink;
 
-  Stream<int> get appEventStream => _appEvent.stream;
+  get appEventStream => _appEvent.stream;
 
   @override
   void dispose() {
+    super.dispose();
     _appEvent.close();
   }
 
-  @override
-  Future getData({String labelId, int page}) {
-    // TODO: implement getData
-    return null;
-  }
-
-  @override
-  Future onLoadMore({String labelId}) {
-    // TODO: implement onLoadMore
-    return null;
-  }
-
-  @override
-  Future onRefresh({String labelId}) {
-    // TODO: implement onRefresh
-    return null;
-  }
-
-  void sendAppEvent(int type){
+  void sendAppEvent(int type) {
     _appEventSink.add(type);
   }
 }

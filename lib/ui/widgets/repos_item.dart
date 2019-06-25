@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/common/component_index.dart';
+import 'package:flutter_bloc/ui/widgets/progress_view.dart';
 
 class ReposItem extends StatelessWidget {
   const ReposItem(

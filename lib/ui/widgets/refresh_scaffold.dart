@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/common/component_index.dart';
-
-typedef void OnLoadMore(bool up);
+import 'package:flutter/scheduler.dart';
+import 'list_footer_view.dart';
+typedef void OnLoadMore();
+typedef void OnRefresh();
 
 class RefreshScaffold extends StatefulWidget {
   const RefreshScaffold(
       {Key key,
-      this.labelId,
-      this.isLoading,
-      @required this.controller,
-      this.enablePullUp: true,
-      this.onRefresh,
-      this.onLoadMore,
-      this.child,
-      this.itemCount,
-      this.itemBuilder})
+        @required this.controller,
+        this.enablePullUp: true,
+        this.enablePullDown: true,
+        this.onRefresh,
+        this.onLoadMore,
+        this.child,
+        this.bottomBar,
+        this.headerWidget,
+        this.itemCount,
+        this.itemBuilder})
       : super(key: key);
 
-  final String labelId;
-  final bool isLoading;
   final RefreshController controller;
   final bool enablePullUp;
-  final RefreshCallback onRefresh;
+  final bool enablePullDown;
+  final OnRefresh onRefresh;
   final OnLoadMore onLoadMore;
   final Widget child;
+  final Widget bottomBar;
+  final PreferredSize headerWidget;
   final int itemCount;
   final IndexedWidgetBuilder itemBuilder;
 
@@ -36,76 +40,34 @@ class RefreshScaffold extends StatefulWidget {
 ///   with AutomaticKeepAliveClientMixin
 class RefreshScaffoldState extends State<RefreshScaffold>
     with AutomaticKeepAliveClientMixin {
-  bool isShowFloatBtn = false;
-
   @override
   void initState() {
     super.initState();
-//    LogUtil.e("RefreshScaffold initState......" + widget.labelId);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.controller.scrollController.addListener(() {
-        int offset = widget.controller.scrollController.offset.toInt();
-        if (offset < 480 && isShowFloatBtn) {
-          isShowFloatBtn = false;
-          setState(() {});
-        } else if (offset > 480 && !isShowFloatBtn) {
-          isShowFloatBtn = true;
-          setState(() {});
-        }
-      });
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      widget.controller.requestRefresh();
     });
-  }
-
-  Widget buildFloatingActionButton() {
-    if (widget.controller.scrollController == null ||
-        widget.controller.scrollController.offset < 480) {
-      return null;
-    }
-
-    return new FloatingActionButton(
-        heroTag: widget.labelId,
-        backgroundColor: Theme.of(context).primaryColor,
-        child: Icon(
-          Icons.keyboard_arrow_up,
-        ),
-        onPressed: () {
-          //_controller.scrollTo(0.0);
-          widget.controller.scrollController.animateTo(0.0,
-              duration: new Duration(milliseconds: 300), curve: Curves.linear);
-        });
   }
 
   @override
   Widget build(BuildContext context) {
-//    LogUtil.e("RefreshScaffold build...... " + widget.labelId);
     super.build(context);
     return new Scaffold(
-        body: new Stack(
-          children: <Widget>[
-            new RefreshIndicator(
-                child: new SmartRefresher(
-                    controller: widget.controller,
-                    enablePullDown: false,
-                    enablePullUp: widget.enablePullUp,
-                    enableOverScroll: false,
-                    onRefresh: widget.onLoadMore,
-                    child: widget.child ??
-                        new ListView.builder(
-                          itemCount: widget.itemCount,
-                          itemBuilder: widget.itemBuilder,
-                        )),
-                onRefresh: widget.onRefresh),
-            new Offstage(
-              offstage: widget.isLoading != true,
-              child: new Container(
-                alignment: Alignment.center,
-                color: Colours.gray_f0,
-                child: new ProgressView(),
-              ),
-            )
-          ],
-        ),
-        floatingActionButton: buildFloatingActionButton());
+      appBar: widget.headerWidget,
+      body: new SmartRefresher(
+          controller: widget.controller,
+          enablePullDown: widget.enablePullDown,
+          enablePullUp: widget.enablePullUp,
+          onRefresh: widget.onRefresh,
+          onLoading: widget.onLoadMore,
+          footer: ListFooterView(),
+          header: MaterialClassicHeader(),
+          child: widget.child ??
+              new ListView.builder(
+                itemCount: widget.itemCount,
+                itemBuilder: widget.itemBuilder,
+              )),
+      bottomNavigationBar: widget.bottomBar,
+    );
   }
 
   @override

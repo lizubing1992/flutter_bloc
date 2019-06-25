@@ -1,8 +1,6 @@
 export 'dart:convert';
 
 export 'package:cached_network_image/cached_network_image.dart';
-export 'package:cached_network_image/cached_network_image.dart';
-export 'package:flukit/flukit.dart';
 export 'package:flukit/flukit.dart';
 export 'package:flutter_bloc/bloc/bloc_index.dart';
 export 'package:flutter_bloc/common/sp_helper.dart';
@@ -13,7 +11,6 @@ export 'package:flutter_bloc/ui/page/page_index.dart';
 export 'package:flutter_bloc/utils/util_index.dart';
 export 'package:pull_to_refresh/pull_to_refresh.dart';
 export 'package:pull_to_refresh/pull_to_refresh.dart';
-export 'package:flutter_bloc/ui/widgets/widget_index.dart';
 export 'package:flutter_bloc/event/event.dart';
 export 'package:rxdart/rxdart.dart';
 

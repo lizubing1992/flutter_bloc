@@ -17,6 +17,10 @@ class Colours {
   static const Color common_orange = Color(0XFFFC9153); //252 145 83
   static const Color gray_ef = Color(0XFFEFEFEF); //153
 
+  static const Color colorPrimaryWindowBg = Color(0xFFEEEEEE);
+  static const Color color_error_bg =  Color(0xffeaf3fc);
+  static const Color transparent = Color(0x00000000);
+
   static const Color gray_f0 = Color(0xfff0f0f0); //<!--204-->
   static const Color gray_f5 = Color(0xfff5f5f5); //<!--204-->
   static const Color gray_cc = Color(0xffcccccc); //<!--204-->

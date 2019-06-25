@@ -11,7 +11,7 @@ class _Page {
 }
 
 final List<_Page> _allPage = <_Page>[
-  new _Page(Ids.titleHome),
+  new _Page(Ids.titleRepos)
 ];
 
 class MainPage extends StatelessWidget {
@@ -32,13 +32,6 @@ class MainPage extends StatelessWidget {
           ),
           centerTitle: true,
           title: new TabLayout(),
-          actions: <Widget>[
-            new IconButton(
-                icon: new Icon(Icons.search),
-                onPressed: () {
-                  //TODO 之后实现
-                })
-          ],
         ),
         body: new TabBarViewLayout(),
       ),
@@ -50,8 +43,8 @@ class TabBarViewLayout extends StatelessWidget {
   Widget buildTabView(BuildContext context, _Page page) {
     String labelId = page.labelId;
     switch (labelId) {
-      case Ids.titleHome:
-        return HomePage(labelId: labelId);
+      case Ids.titleRepos:
+        return ReposPage(labelId: labelId);
         break;
       default:
         return new Container();
