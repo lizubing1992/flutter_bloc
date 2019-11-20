@@ -52,7 +52,6 @@ class ListFooterView extends LoadIndicator {
 
   const ListFooterView.asSliver({
     Key key,
-    @required OnLoading onLoading,
     Function onClick,
     this.textStyle: const TextStyle(color: const Color(0xff555555)),
     this.decoration: const BoxDecoration(),
@@ -75,7 +74,6 @@ class ListFooterView extends LoadIndicator {
     this.idleIcon = const Icon(Icons.arrow_downward, color: Colors.grey),
   }) : super(
           key: key,
-          onLoading: onLoading,
           onClick: onClick,
         );
 
