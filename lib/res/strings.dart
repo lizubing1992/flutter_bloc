@@ -48,7 +48,7 @@ Map<String, Map<String, String>> localizedSimpleValues = {
   },
   'zh': {
     Ids.titleHome: '主页',
-    Ids.titleRepos: '项目',
+    Ids.titleRepos: 'BLOC',
     Ids.titleEvents: '动态',
     Ids.titleSystem: '体系',
     Ids.titleBookmarks: '书签',
@@ -88,7 +88,7 @@ Map<String, Map<String, Map<String, String>>> localizedValues = {
   'zh': {
     'CN': {
       Ids.titleHome: '主页',
-      Ids.titleRepos: '项目',
+      Ids.titleRepos: 'BLOC',
       Ids.titleEvents: '动态',
       Ids.titleSystem: '体系',
       Ids.titleBookmarks: '书签',

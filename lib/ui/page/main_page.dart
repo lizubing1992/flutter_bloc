@@ -10,9 +10,7 @@ class _Page {
   _Page(this.labelId);
 }
 
-final List<_Page> _allPage = <_Page>[
-  new _Page(Ids.titleRepos)
-];
+final List<_Page> _allPage = <_Page>[new _Page(Ids.titleRepos)];
 
 class MainPage extends StatelessWidget {
   @override
