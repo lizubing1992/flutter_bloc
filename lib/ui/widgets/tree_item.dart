@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/common/component_index.dart';
+import 'package:flutter_bloc/data/protocol/models.dart';
+import 'package:flutter_bloc/res/colors.dart';
+import 'package:flutter_bloc/res/strings.dart';
+import 'package:flutter_bloc/res/styles.dart';
+import 'package:flutter_bloc/utils/navigator_util.dart';
+import 'package:flutter_bloc/utils/utils.dart';
 
 class TreeItem extends StatelessWidget {
   const TreeItem(this.model, {Key key}) : super(key: key);
@@ -15,18 +20,18 @@ class TreeItem extends StatelessWidget {
         backgroundColor: Utils.getChipBgColor(_model.name),
         label: Text(
           _model.name,
-          style: new TextStyle(fontSize: 14.0),
+          style:  TextStyle(fontSize: 14.0),
         ),
       );
     }).toList();
 
-    return new InkWell(
+    return  InkWell(
       onTap: () {
         //LogUtil.e("ReposModel: " + model.toString());
         NavigatorUtil.pushTabPage(context,
             labelId: Ids.titleSystemTree, title: model.name, treeModel: model);
       },
-      child: new _ChipsTile(
+      child:  _ChipsTile(
         label: model.name,
         children: chips,
       ),
@@ -48,7 +53,7 @@ class _ChipsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> cardChildren = <Widget>[
-      new Text(
+       Text(
         label,
         style: TextStyles.listTitle,
       ),
@@ -62,17 +67,17 @@ class _ChipsTile extends StatelessWidget {
       );
     }).toList()));
 
-    return new Container(
+    return  Container(
       padding: EdgeInsets.all(16.0),
-      child: new Column(
+      child:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: cardChildren,
       ),
-      decoration: new BoxDecoration(
+      decoration:  BoxDecoration(
           color: Colors.white,
-          border: new Border(
-              bottom: new BorderSide(width: 0.33, color: Colours.divider))),
+          border:  Border(
+              bottom:  BorderSide(width: 0.33, color: Colours.divider))),
     );
   }
 }

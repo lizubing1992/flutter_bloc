@@ -21,7 +21,7 @@ abstract class BaseListWidget extends BaseWidget {
 /// E： 列表数据Entity
 abstract class BaseListState<T extends BaseListWidget, B extends BaseBloc,
     E extends Object> extends BaseState<T, B> {
-  RefreshController controller = new RefreshController();
+  RefreshController controller =  RefreshController();
 
   @override
   Widget buildWidget(BuildContext context) {
@@ -47,7 +47,7 @@ abstract class BaseListState<T extends BaseListWidget, B extends BaseBloc,
             enablePullDown: isLoadMore(),
             onRefresh: onRefresh,
             onLoadMore: onLoadMore,
-            child: new ListView.builder(
+            child:  ListView.builder(
               itemCount: snapshot.data == null ? 0 : snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 E model = snapshot.data[index];

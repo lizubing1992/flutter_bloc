@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/common/component_index.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'list_footer_view.dart';
 typedef void OnLoadMore();
 typedef void OnRefresh();
@@ -51,16 +51,16 @@ class RefreshScaffoldState extends State<RefreshScaffold>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return new Scaffold(
+    return  Scaffold(
       appBar: widget.headerWidget,
-      body: new SmartRefresher(
+      body:  SmartRefresher(
           controller: widget.controller,
           enablePullDown: widget.enablePullDown,
           enablePullUp: widget.enablePullUp,
           onRefresh: widget.onRefresh,
           onLoading: widget.onLoadMore,
           child: widget.child ??
-              new ListView.builder(
+               ListView.builder(
                 itemCount: widget.itemCount,
                 itemBuilder: widget.itemBuilder,
               )),

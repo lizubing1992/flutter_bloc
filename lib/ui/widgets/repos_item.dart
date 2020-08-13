@@ -1,6 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/common/component_index.dart';
+import 'package:flutter_bloc/data/protocol/models.dart';
+import 'package:flutter_bloc/res/colors.dart';
+import 'package:flutter_bloc/res/styles.dart';
 import 'package:flutter_bloc/ui/widgets/progress_view.dart';
+import 'package:flutter_bloc/utils/navigator_util.dart';
+import 'package:flutter_bloc/utils/utils.dart';
 
 class ReposItem extends StatelessWidget {
   const ReposItem(
@@ -14,30 +19,30 @@ class ReposItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new InkWell(
+    return  InkWell(
       onTap: () {
         NavigatorUtil.pushWeb(context,
             title: model.title, url: model.link, isHome: isHome);
       },
-      child: new Container(
+      child:  Container(
           height: 160.0,
           padding: EdgeInsets.all(16.0),
-          child: new Row(
+          child:  Row(
             children: <Widget>[
-              new Expanded(
-                  child: new Column(
+               Expanded(
+                  child:  Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(
+                   Text(
                     model.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.listTitle,
                   ),
                   Gaps.vGap10,
-                  new Expanded(
+                   Expanded(
                     flex: 1,
-                    child: new Text(
+                    child:  Text(
                       model.desc,
                       maxLines: 3,
                       softWrap: true,
@@ -46,14 +51,14 @@ class ReposItem extends StatelessWidget {
                     ),
                   ),
                   Gaps.vGap5,
-                  new Row(
+                   Row(
                     children: <Widget>[
-                      new Text(
+                       Text(
                         model.author,
                         style: TextStyles.listExtra,
                       ),
                       Gaps.hGap10,
-                      new Text(
+                       Text(
                         Utils.getTimeLine(context, model.publishTime),
                         style: TextStyles.listExtra,
                       ),
@@ -61,25 +66,25 @@ class ReposItem extends StatelessWidget {
                   )
                 ],
               )),
-              new Container(
+               Container(
                 width: 72,
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(left: 10.0),
-                child: new CachedNetworkImage(
+                child:  CachedNetworkImage(
                   width: 72,
                   height: 128,
                   fit: BoxFit.fill,
                   imageUrl: model.envelopePic,
-                  placeholder: (context, url) => new ProgressView(),
-                  errorWidget: (context, url, error) => new Icon(Icons.error),
+                  placeholder: (context, url) =>  ProgressView(),
+                  errorWidget: (context, url, error) =>  Icon(Icons.error),
                 ),
               )
             ],
           ),
-          decoration: new BoxDecoration(
+          decoration:  BoxDecoration(
               color: Colors.white,
-              border: new Border(
-                  bottom: new BorderSide(width: 0.33, color: Colours.divider)))),
+              border:  Border(
+                  bottom:  BorderSide(width: 0.33, color: Colours.divider)))),
     );
   }
 }

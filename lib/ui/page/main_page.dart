@@ -1,5 +1,10 @@
+import 'package:common_utils/common_utils.dart';
+import 'package:fluintl/fluintl.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/common/component_index.dart';
+import 'package:flutter_bloc/res/strings.dart';
+import 'package:flutter_bloc/ui/page/repos_page.dart';
+import 'package:flutter_bloc/utils/utils.dart';
 
 /// @desp: 主页main
 /// @time 2019/5/6 16:30
@@ -10,7 +15,7 @@ class _Page {
   _Page(this.labelId);
 }
 
-final List<_Page> _allPage = <_Page>[new _Page(Ids.titleRepos)];
+final List<_Page> _allPage = <_Page>[ _Page(Ids.titleRepos)];
 
 class MainPage extends StatelessWidget {
   @override
@@ -18,9 +23,9 @@ class MainPage extends StatelessWidget {
     LogUtil.e("MainPage Build");
     return new DefaultTabController(
       length: _allPage.length,
-      child: new Scaffold(
-        appBar: new MyAppBar(
-          leading: new Container(
+      child:  Scaffold(
+        appBar:  MyAppBar(
+          leading:  Container(
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
@@ -29,9 +34,9 @@ class MainPage extends StatelessWidget {
                 ))),
           ),
           centerTitle: true,
-          title: new TabLayout(),
+          title:  TabLayout(),
         ),
-        body: new TabBarViewLayout(),
+        body:  TabBarViewLayout(),
       ),
     );
   }
@@ -45,7 +50,7 @@ class TabBarViewLayout extends StatelessWidget {
         return ReposPage(labelId: labelId);
         break;
       default:
-        return new Container();
+        return  Container();
         break;
     }
   }
@@ -53,7 +58,7 @@ class TabBarViewLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LogUtil.e("TabBarViewLayout build");
-    return new TabBarView(
+    return  TabBarView(
         children: _allPage.map((page) {
       return buildTabView(context, page);
     }).toList());
@@ -63,9 +68,9 @@ class TabBarViewLayout extends StatelessWidget {
 class TabLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new TabBar(
+    return  TabBar(
       tabs: _allPage
-          .map((_Page page) => new Tab(
+          .map((_Page page) => Tab(
                 text: IntlUtil.getString(context, page.labelId),
               ))
           .toList(),

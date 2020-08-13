@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/res/res_index.dart';
+import 'package:flutter_bloc/res/colors.dart';
+import 'package:flutter_bloc/res/dimens.dart';
 
 class TextStyles {
   static TextStyle listTitle = TextStyle(

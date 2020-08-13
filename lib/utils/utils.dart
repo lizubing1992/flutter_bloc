@@ -1,7 +1,7 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/common/common.dart';
-import 'package:flutter_bloc/res/res_index.dart';
+import 'package:flutter_bloc/res/colors.dart';
 import 'package:lpinyin/lpinyin.dart';
 
 class Utils {

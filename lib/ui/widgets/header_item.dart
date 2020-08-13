@@ -1,5 +1,9 @@
+import 'package:fluintl/fluintl.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/common/component_index.dart';
+import 'package:flutter_bloc/res/colors.dart';
+import 'package:flutter_bloc/res/strings.dart';
+import 'package:flutter_bloc/res/styles.dart';
+import 'package:flutter_bloc/utils/utils.dart';
 
 class HeaderItem extends StatelessWidget {
   const HeaderItem(
@@ -27,21 +31,21 @@ class HeaderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return  Container(
       height: 56.0,
       margin: margin ?? EdgeInsets.only(top: 0.0),
-      child: new ListTile(
+      child:  ListTile(
           onTap: onTap,
-          title: new Row(
+          title:  Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              new Icon(
+               Icon(
                 leftIcon ?? Icons.whatshot,
                 color: titleColor ?? Colors.blueAccent,
               ),
               Gaps.hGap10,
-              new Expanded(
-                  child: new Text(
+               Expanded(
+                  child:  Text(
                 title ?? IntlUtil.getString(context, titleId),
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -51,23 +55,23 @@ class HeaderItem extends StatelessWidget {
               ))
             ],
           ),
-          trailing: new Row(
+          trailing:  Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              new Text(
+               Text(
                 extra ?? IntlUtil.getString(context, extraId),
                 style: TextStyle(color: Colors.grey, fontSize: 14),
               ),
-              new Icon(
+               Icon(
                 rightIcon ?? Icons.keyboard_arrow_right,
                 color: Colors.grey,
               ),
             ],
           )),
-      decoration: new BoxDecoration(
+      decoration:  BoxDecoration(
           //new Border.all(width: 0.33, color: Colours.divider)
-          border: new Border(
-              bottom: new BorderSide(width: 0.33, color: Colours.divider))),
+          border:  Border(
+              bottom:  BorderSide(width: 0.33, color: Colours.divider))),
     );
   }
 }

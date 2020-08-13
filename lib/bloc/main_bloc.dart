@@ -1,6 +1,9 @@
 import 'dart:collection';
 
-import 'package:flutter_bloc/common/component_index.dart';
+import 'package:common_utils/common_utils.dart';
+import 'package:flutter_bloc/bloc/bloc_provider.dart';
+import 'package:flutter_bloc/data/protocol/models.dart';
+import 'package:rxdart/rxdart.dart';
 
 /// @desp:主页mainPage相关的Bloc
 /// @time 2019/5/6 14:58

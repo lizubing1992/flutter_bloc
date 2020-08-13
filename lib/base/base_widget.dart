@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/common/component_index.dart';
 import 'package:flutter_bloc/event/page_event.dart';
 import 'package:flutter_bloc/bloc/bloc_provider.dart';
+import 'package:flutter_bloc/res/colors.dart';
+import 'package:flutter_bloc/res/styles.dart';
 import 'package:flutter_bloc/ui/widgets/progress_view.dart';
 
 /// @desp: 基本的StatefulWidget页面
@@ -47,7 +48,7 @@ abstract class BaseState<T extends BaseWidget, B extends BaseBloc>
   ///构建内容区
   Widget _buildBody() {
     bloc = BlocProvider.of<B>(context);
-    return new StreamBuilder(
+    return  StreamBuilder(
         stream: bloc.pageEventStream,
         builder:
             (BuildContext context, AsyncSnapshot<PageStatusEvent> snapshot) {
@@ -98,18 +99,18 @@ abstract class BaseState<T extends BaseWidget, B extends BaseBloc>
   }
 
   Widget _buildErrorWidget(String errorDesc) {
-    return new InkWell(
+    return  InkWell(
       onTap: () {
         onErrorClick();
       },
-      child: new Container(
+      child:  Container(
         alignment: Alignment.center,
         color: Colours.gray_f0,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new Container(
+             Container(
               child: Image.asset('images/page_icon_network.png'),
               width: 70,
               height: 50,

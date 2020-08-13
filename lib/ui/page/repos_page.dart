@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/common/component_index.dart';
+import 'package:flutter_bloc/bloc/bloc_provider.dart';
 import 'package:flutter_bloc/base/base_list_widget.dart';
+import 'package:flutter_bloc/bloc/main_bloc.dart';
+import 'package:flutter_bloc/data/protocol/models.dart';
 import 'package:flutter_bloc/ui/widgets/repos_item.dart';
 
 /// @desp:

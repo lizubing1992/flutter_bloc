@@ -1,8 +1,18 @@
 import 'package:dio/dio.dart';
+import 'package:fluintl/fluintl.dart';
+import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/bloc/application_bloc.dart';
+import 'package:flutter_bloc/bloc/bloc_provider.dart';
+import 'package:flutter_bloc/bloc/main_bloc.dart';
+import 'package:flutter_bloc/common/common.dart';
+import 'package:flutter_bloc/common/sp_helper.dart';
+import 'package:flutter_bloc/models/models.dart';
+import 'package:flutter_bloc/res/colors.dart';
+import 'package:flutter_bloc/res/strings.dart';
+import 'package:flutter_bloc/ui/page/main_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_bloc/ui/page/page_index.dart';
-import 'common/component_index.dart';
+
 import 'data/net/dio_util.dart';
 
 void main() => runApp(BlocProvider<ApplicationBloc>(
@@ -33,10 +43,10 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-     /* routes: {
+      /* routes: {
         '/MainPage': (ctx) => MainPage(),
       },*/
-      home: new MainPage(),
+      home: MainPage(),
       theme: ThemeData.light().copyWith(
         primaryColor: _themeColor,
         accentColor: _themeColor,
