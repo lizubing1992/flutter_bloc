@@ -15,17 +15,17 @@ class _Page {
   _Page(this.labelId);
 }
 
-final List<_Page> _allPage = <_Page>[ _Page(Ids.titleRepos)];
+final List<_Page> _allPage = <_Page>[_Page(Ids.titleRepos)];
 
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LogUtil.e("MainPage Build");
-    return new DefaultTabController(
+    return  DefaultTabController(
       length: _allPage.length,
-      child:  Scaffold(
-        appBar:  MyAppBar(
-          leading:  Container(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Container(
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
@@ -34,9 +34,9 @@ class MainPage extends StatelessWidget {
                 ))),
           ),
           centerTitle: true,
-          title:  TabLayout(),
+          title: TabLayout(),
         ),
-        body:  TabBarViewLayout(),
+        body: TabBarViewLayout(),
       ),
     );
   }
@@ -50,7 +50,7 @@ class TabBarViewLayout extends StatelessWidget {
         return ReposPage(labelId: labelId);
         break;
       default:
-        return  Container();
+        return Container();
         break;
     }
   }
@@ -58,7 +58,7 @@ class TabBarViewLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LogUtil.e("TabBarViewLayout build");
-    return  TabBarView(
+    return TabBarView(
         children: _allPage.map((page) {
       return buildTabView(context, page);
     }).toList());
@@ -68,7 +68,7 @@ class TabBarViewLayout extends StatelessWidget {
 class TabLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  TabBar(
+    return TabBar(
       tabs: _allPage
           .map((_Page page) => Tab(
                 text: IntlUtil.getString(context, page.labelId),

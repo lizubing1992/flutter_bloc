@@ -4,6 +4,7 @@ import 'package:flutter_bloc/bloc/bloc_provider.dart';
 import 'package:flutter_bloc/res/colors.dart';
 import 'package:flutter_bloc/res/styles.dart';
 import 'package:flutter_bloc/ui/widgets/progress_view.dart';
+import 'package:flutter_bloc/utils/utils.dart';
 
 /// @desp: 基本的StatefulWidget页面
 /// @time 2019/5/17 14:35
@@ -111,7 +112,7 @@ abstract class BaseState<T extends BaseWidget, B extends BaseBloc>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
              Container(
-              child: Image.asset('images/page_icon_network.png'),
+              child: Image.asset('${Utils.getImgPath('page_icon_network')}'),
               width: 70,
               height: 50,
             ),

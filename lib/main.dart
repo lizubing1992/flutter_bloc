@@ -64,8 +64,8 @@ class MyAppState extends State<MyApp> {
 
   void _init() {
     DioUtil.openDebug();
-    Options options = DioUtil.getDefOptions();
-    options.baseUrl = Constant.server_address;
+    BaseOptions options = DioUtil.getDefOptions();
+    options.merge();
     HttpConfig config = new HttpConfig(options: options);
     DioUtil().setConfig(config);
   }

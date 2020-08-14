@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:async';
 
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
 /**
@@ -92,7 +94,7 @@ class HttpConfig {
   String data;
 
   /// Options.
-  Options options;
+  BaseOptions options;
 
   /// 详细使用请查看dio官网 https://github.com/flutterchina/dio/blob/flutter/README-ZH.md#Https证书校验.
   /// PEM证书内容.
@@ -127,7 +129,7 @@ class DioUtil {
   String _dataKey = "data";
 
   /// Options.
-  Options _options = getDefOptions();
+  BaseOptions _options = getDefOptions();
 
   /// PEM证书内容.
   String _pem;
@@ -169,7 +171,8 @@ class DioUtil {
     if (_dio != null) {
       _dio.options = _options;
       if (_pem != null) {
-        _dio.onHttpClientCreate = (HttpClient client) {
+        (_dio.httpClientAdapter as DefaultHttpClientAdapter)
+            .onHttpClientCreate = (HttpClient client) {
           client.badCertificateCallback =
               (X509Certificate cert, String host, int port) {
             if (cert.pem == _pem) {
@@ -181,7 +184,8 @@ class DioUtil {
         };
       }
       if (_pKCSPath != null) {
-        _dio.onHttpClientCreate = (HttpClient client) {
+        (_dio.httpClientAdapter as DefaultHttpClientAdapter)
+            .onHttpClientCreate = (HttpClient client) {
           SecurityContext sc = new SecurityContext();
           //file为证书路径
           sc.setTrustedCertificates(_pKCSPath, password: _pKCSPwd);
@@ -199,7 +203,7 @@ class DioUtil {
   /// [options] The request options.
   /// <BaseResp<T> 返回 status code msg data .
   Future<BaseResp<T>> request<T>(String method, String path,
-      {data, Options options, CancelToken cancelToken}) async {
+      {data, BaseOptions options, CancelToken cancelToken}) async {
     Response response = await _dio.request(path,
         data: data,
         options: _checkOptions(method, options),
@@ -232,18 +236,18 @@ class DioUtil {
           _msg = _dataMap[_msgKey];
           _data = _dataMap[_dataKey];
         }
-        return new BaseResp(_status, _code, _msg, _data);
+        return BaseResp(_status, _code, _msg, _data);
       } catch (e) {
-        return new Future.error(new DioError(
+        return Future.error(DioError(
           response: response,
-          message: "data parsing exception...",
+          error: "data parsing exception...",
           type: DioErrorType.RESPONSE,
         ));
       }
     }
     return new Future.error(new DioError(
       response: response,
-      message: "statusCode: $response.statusCode, service error",
+      error: "statusCode: $response.statusCode, service error",
       type: DioErrorType.RESPONSE,
     ));
   }
@@ -255,7 +259,7 @@ class DioUtil {
   /// [options] The request options.
   /// <BaseRespR<T> 返回 status code msg data  Response.
   Future<BaseRespR<T>> requestR<T>(String method, String path,
-      {data, Options options, CancelToken cancelToken}) async {
+      {data, BaseOptions options, CancelToken cancelToken}) async {
     Response response = await _dio.request(path,
         data: data,
         options: _checkOptions(method, options),
@@ -292,14 +296,14 @@ class DioUtil {
       } catch (e) {
         return new Future.error(new DioError(
           response: response,
-          message: "data parsing exception...",
+          error: "data parsing exception...",
           type: DioErrorType.RESPONSE,
         ));
       }
     }
     return new Future.error(new DioError(
       response: response,
-      message: "statusCode: $response.statusCode, service error",
+      error: "statusCode: $response.statusCode, service error",
       type: DioErrorType.RESPONSE,
     ));
   }
@@ -311,13 +315,13 @@ class DioUtil {
   Future<Response> download(
     String urlPath,
     savePath, {
-    OnDownloadProgress onProgress,
+    ProgressCallback onProgress,
     CancelToken cancelToken,
     data,
     Options options,
   }) {
     return _dio.download(urlPath, savePath,
-        onProgress: onProgress,
+        onReceiveProgress: onProgress,
         cancelToken: cancelToken,
         data: data,
         options: options);
@@ -336,21 +340,20 @@ class DioUtil {
   /// check Options.
   Options _checkOptions(method, options) {
     if (options == null) {
-      options = new Options();
+      options = BaseOptions();
     }
     options.method = method;
     return options;
   }
 
   /// merge Option.
-  void _mergeOption(Options opt) {
+  void _mergeOption(BaseOptions opt) {
     _options.method = opt.method ?? _options.method;
     _options.headers = (new Map.from(_options.headers))..addAll(opt.headers);
     _options.baseUrl = opt.baseUrl ?? _options.baseUrl;
     _options.connectTimeout = opt.connectTimeout ?? _options.connectTimeout;
     _options.receiveTimeout = opt.receiveTimeout ?? _options.receiveTimeout;
     _options.responseType = opt.responseType ?? _options.responseType;
-    _options.data = opt.data ?? _options.data;
     _options.extra = (new Map.from(_options.extra))..addAll(opt.extra);
     _options.contentType = opt.contentType ?? _options.contentType;
     _options.validateStatus = opt.validateStatus ?? _options.validateStatus;
@@ -376,7 +379,7 @@ class DioUtil {
   }
 
   /// get Options Str.
-  String _getOptionsStr(Options request) {
+  String _getOptionsStr(RequestOptions request) {
     return "method: " +
         request.method +
         "  baseUrl: " +
@@ -405,17 +408,15 @@ class DioUtil {
   }
 
   /// create new dio.
-  static Dio createNewDio([Options options]) {
+  static Dio createNewDio([BaseOptions options]) {
     options = options ?? getDefOptions();
-    Dio dio = new Dio(options);
+    Dio dio = Dio(options);
     return dio;
   }
 
   /// get Def Options.
-  static Options getDefOptions() {
-    Options options = new Options();
-    options.contentType =
-        ContentType.parse("application/x-www-form-urlencoded");
+  static BaseOptions getDefOptions() {
+    BaseOptions options = BaseOptions();
     options.connectTimeout = 1000 * 10;
     options.receiveTimeout = 1000 * 20;
     return options;
